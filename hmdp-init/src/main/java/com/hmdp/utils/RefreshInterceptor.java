@@ -27,13 +27,11 @@ public class RefreshInterceptor implements HandlerInterceptor {
         //1.从请求头获取token
         String token = request.getHeader("authorization");
         if(token == null){
-            response.setStatus(401);
             return true;
         }
         //2.从redis中获取user
         Map<Object, Object> userMap = stringRedisTemplate.opsForHash().entries(LOGIN_USER_KEY + token);
         if(userMap.isEmpty()){
-            response.setStatus(401);
             return true;
         }
         UserDTO userDTO = new UserDTO();

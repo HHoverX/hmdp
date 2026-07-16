@@ -15,11 +15,12 @@ public class Mvcconfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //token刷新拦截器
-        registry.addInterceptor(new RefreshInterceptor(stringRedisTemplate)).order(0);
+        registry.addInterceptor(new RefreshInterceptor(stringRedisTemplate)).addPathPatterns("/**").order(0);
         //登录拦截器
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(
                 "/shop/**",
+                "/voucher/**",
                 "/shop-type/**",
                 "/upload/**",
                 "/blog/hot",
